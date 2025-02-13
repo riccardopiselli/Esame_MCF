@@ -1,0 +1,492 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy import fft
+import math
+import matplotlib.pyplot as plt
+import matplotlib.colors as colors
+
+
+
+
+
+'''
+
+Per il Texas il metodo è differente daglin altri stati....à
+sono presenti più stazioni di monitoraggio e quiindi come prima cosa 
+andiamo a creare nuovi csv solo con le singole stazzioni.
+
+Secondo questo principio:
+
+1415 Hinton Street   ---> Texas01
+250 Rim Rd           ---> Texas02
+800 S Son Marcial    ---> Texas03
+7421 Park Place Blvd ---> Texas04
+9525 1/2 Clinton Dr  ---> Texas05
+4514 1/2 Durant St   ---> Texas06
+4472 Mazanec Rd      ---> Texas07
+3724 North Hills Dr  ---> Texas08
+
+'''
+mydf = pd.read_csv('Texas.csv')
+
+
+correct_line_Texas01 = np.empty(0)
+correct_line_Texas02 = np.empty(0)
+correct_line_Texas03 = np.empty(0)
+correct_line_Texas04 = np.empty(0)
+correct_line_Texas05 = np.empty(0)
+correct_line_Texas06 = np.empty(0)
+correct_line_Texas07 = np.empty(0)
+correct_line_Texas08 = np.empty(0)
+
+
+N = len(mydf['Date Local'])
+Address = mydf['Address']
+
+for i in range(0,N-1):
+    if Address[i] == '1415 Hinton Street':
+       correct_line_Texas01 = np.append(correct_line_Texas01, i)
+    
+    elif Address[i] == '250 Rim Rd':
+        correct_line_Texas02 = np.append(correct_line_Texas02, i)
+    
+    elif Address[i] == '800 S San Marcial Street' :
+        correct_line_Texas03 = np.append(correct_line_Texas03, i)
+
+  
+    elif Address[i] == '7421 Park Place Blvd':
+        correct_line_Texas04 = np.append(correct_line_Texas04, i)
+
+    elif Address[i] == '9525 1/2 Clinton Dr':
+        correct_line_Texas05 = np.append(correct_line_Texas05, i)
+
+    elif Address[i] == '4514 1/2 Durant St':
+        correct_line_Texas06 = np.append(correct_line_Texas06, i)
+    
+    elif Address[i] == '4472 Mazanec Rd':
+        correct_line_Texas07 = np.append(correct_line_Texas07, i)
+    
+    elif Address[i] == '3724 North Hills Dr':
+        correct_line_Texas08 = np.append(correct_line_Texas08, i)
+
+
+
+df_Texas01 = mydf.iloc[correct_line_Texas01]
+df_Texas02 = mydf.iloc[correct_line_Texas02]
+df_Texas03 = mydf.iloc[correct_line_Texas03]
+df_Texas04 = mydf.iloc[correct_line_Texas04]
+df_Texas05 = mydf.iloc[correct_line_Texas05]
+df_Texas06 = mydf.iloc[correct_line_Texas06]
+df_Texas07 = mydf.iloc[correct_line_Texas07]
+df_Texas08 = mydf.iloc[correct_line_Texas08]
+
+'''
+
+
+
+Salvo i risulatati dei miei dataframe in dei file csv... 
+
+
+
+'''
+
+
+
+df_Texas01.to_csv('Texas01.csv')
+df_Texas02.to_csv('Texas02.csv')
+df_Texas03.to_csv('Texas03.csv')
+df_Texas04.to_csv('Texas04.csv')
+df_Texas05.to_csv('Texas05.csv')
+df_Texas06.to_csv('Texas06.csv')
+df_Texas07.to_csv('Texas07.csv')
+df_Texas08.to_csv('Texas08.csv')
+
+'''
+
+Adesso faccio i grafici...
+Iniziamo estraendo le colonne che mi interessano dai vari Dataframe
+
+'''
+
+
+SO2_01 = df_Texas01['SO2 Mean']
+SO2_02 = df_Texas02['SO2 Mean']
+SO2_03 = df_Texas03['SO2 Mean']
+SO2_04 = df_Texas04['SO2 Mean']
+SO2_05 = df_Texas05['SO2 Mean']
+SO2_06 = df_Texas06['SO2 Mean']
+SO2_07 = df_Texas07['SO2 Mean']
+SO2_08 = df_Texas08['SO2 Mean']
+
+NO2_01 = df_Texas01['NO2 Mean']
+NO2_02 = df_Texas02['NO2 Mean']
+NO2_03 = df_Texas03['NO2 Mean']
+NO2_04 = df_Texas04['NO2 Mean']
+NO2_05 = df_Texas05['NO2 Mean']
+NO2_06 = df_Texas06['NO2 Mean']
+NO2_07 = df_Texas07['NO2 Mean']
+NO2_08 = df_Texas08['NO2 Mean']
+
+O3_01 = df_Texas01['O3 Mean']
+O3_02 = df_Texas02['O3 Mean']
+O3_03 = df_Texas03['O3 Mean']
+O3_04 = df_Texas04['O3 Mean']
+O3_05 = df_Texas05['O3 Mean']
+O3_06 = df_Texas06['O3 Mean']
+O3_07 = df_Texas07['O3 Mean']
+O3_08 = df_Texas08['O3 Mean']
+
+CO_01 = df_Texas01['CO Mean']
+CO_02 = df_Texas02['CO Mean']
+CO_03 = df_Texas03['CO Mean']
+CO_04 = df_Texas04['CO Mean']
+CO_05 = df_Texas05['CO Mean']
+CO_06 = df_Texas06['CO Mean']
+CO_07 = df_Texas07['CO Mean']
+CO_08 = df_Texas08['CO Mean']
+
+
+'''
+
+Faccaimo i grafici
+
+'''
+
+'''
+
+
+
+
+
+
+'''
+#Texas 01
+N1 = len(SO2_01)
+time1 = np.arange(0,N1)
+
+#Texas 02
+N2 = len(SO2_02)
+time2 = np.arange(0,N2)
+
+#Texas 03
+N3 = len(SO2_03)
+time3 = np.arange(0,N3)
+
+#Texas 04
+N4 = len(SO2_04)
+time4 = np.arange(0,N4)
+
+#Texas 05
+N5 = len(SO2_05)
+time5 = np.arange(0,N5)
+
+#Texas 06
+N6 = len(SO2_06)
+time6 = np.arange(0,N6)
+
+#Texas 07
+N7 = len(SO2_07)
+time7 = np.arange(0,N7)
+
+#Texas 04
+N8 = len(SO2_08)
+time8 = np.arange(0,N8)
+
+
+
+fig, axs = plt.subplots(1, 1, layout='constrained', facecolor = 'aliceblue')
+
+
+axs[0,0].plot(time1,CO_01, color='red')
+axs[0,0].set_xlabel('Time (day)')
+axs[1,2].set_title('Texas 01')
+axs[0,0].grid(True)
+
+axs[0,1].plot(time2,CO_02, color='forestgreen')
+axs[0,1].set_xlabel('Time (day)')
+axs[1,2].set_title('Texas 02')
+axs[0,1].grid(True)
+
+axs[1,0].plot(time3,CO_03, color='dodgerblue')
+axs[1,0].set_xlabel('Time (day)')
+axs[1,2].set_title('Texas 03')
+axs[1,0].grid(True)
+
+
+axs[1,1].plot(time4, CO_04, color='orange')
+axs[1,1].set_xlabel('Time (day)')
+axs[1,1].set_title('Texas 04')
+axs[1,1].grid(True)
+
+axs[0,2].plot(time5, CO_05, color='orange')
+axs[0,2].set_xlabel('Time (day)')
+axs[0,2].set_title('Texas 05')
+axs[0,2].grid(True)
+
+axs[1,2].plot(time6, CO_06, color='orange')
+axs[1,2].set_xlabel('Time (day)')
+axs[1,2].set_title('Texas 06')
+axs[1,2].grid(True)
+
+axs[2,1].plot(time7, CO_07, color='orange')
+axs[2,1].set_xlabel('Time (day)')
+axs[2,1].set_title('Texas 07')
+axs[2,1].grid(True)
+
+axs[2,0].plot(time8, CO_08, color='orange')
+axs[2,0].set_xlabel('Time (day)')
+axs[2,0].set_title('Texas 08')
+axs[2,0].grid(True)
+
+
+
+
+
+plt.show()
+
+
+'''
+
+
+Texas02
+
+
+
+
+
+N = len(SO2_02)
+time = np.arange(0,N)
+
+fig, axs = plt.subplots(4, 1, layout='constrained')
+axs[0].plot(time,CO_02, color='red')
+axs[0].set_xlabel('Time (day)')
+axs[0].set_ylabel('CO Mean')
+axs[0].grid(True)
+
+axs[1].plot(time,SO2_02, color='forestgreen')
+axs[1].set_xlabel('Time (day)')
+axs[1].set_ylabel('SO2 Mean')
+axs[1].grid(True)
+
+axs[2].plot(time,O3_02, color='dodgerblue')
+axs[2].set_xlabel('Time (day)')
+axs[2].set_ylabel('O3 Mean')
+axs[2].grid(True)
+
+
+axs[3].plot(time, NO2_02, color='orange')
+axs[3].set_xlabel('Time (day)')
+axs[3].set_ylabel('NO2 Mean')
+axs[3].grid(True)
+plt.show()
+
+'''
+
+
+
+
+
+
+'''
+
+N = len(SO2_03)
+time = np.arange(0,N)
+
+fig, axs = plt.subplots(4, 1, layout='constrained')
+axs[0].plot(time,CO_03, color='red')
+axs[0].set_xlabel('Time (day)')
+axs[0].set_ylabel('CO Mean')
+axs[0].grid(True)
+
+axs[1].plot(time,SO2_03, color='forestgreen')
+axs[1].set_xlabel('Time (day)')
+axs[1].set_ylabel('SO2 Mean')
+axs[1].grid(True)
+
+axs[2].plot(time,O3_03, color='dodgerblue')
+axs[2].set_xlabel('Time (day)')
+axs[2].set_ylabel('O3 Mean')
+axs[2].grid(True)
+
+
+axs[3].plot(time, NO2_03, color='orange')
+axs[3].set_xlabel('Time (day)')
+axs[3].set_ylabel('NO2 Mean')
+axs[3].grid(True)
+plt.show()
+
+'''
+
+
+
+
+
+
+'''
+
+N = len(SO2_04)
+time = np.arange(0,N)
+
+fig, axs = plt.subplots(4, 1, layout='constrained')
+axs[0].plot(time,CO_04, color='red')
+axs[0].set_xlabel('Time (day)')
+axs[0].set_ylabel('CO Mean')
+axs[0].grid(True)
+
+axs[1].plot(time,SO2_04, color='forestgreen')
+axs[1].set_xlabel('Time (day)')
+axs[1].set_ylabel('SO2 Mean')
+axs[1].grid(True)
+
+axs[2].plot(time,O3_04, color='dodgerblue')
+axs[2].set_xlabel('Time (day)')
+axs[2].set_ylabel('O3 Mean')
+axs[2].grid(True)
+
+
+axs[3].plot(time, NO2_04, color='orange')
+axs[3].set_xlabel('Time (day)')
+axs[3].set_ylabel('NO2 Mean')
+axs[3].grid(True)
+plt.show()
+
+'''
+
+
+
+
+
+'''
+
+N = len(SO2_05)
+time = np.arange(0,N)
+
+fig, axs = plt.subplots(4, 1, layout='constrained')
+axs[0].plot(time,CO_05, color='red')
+axs[0].set_xlabel('Time (day)')
+axs[0].set_ylabel('CO Mean')
+axs[0].grid(True)
+
+axs[1].plot(time,SO2_05, color='forestgreen')
+axs[1].set_xlabel('Time (day)')
+axs[1].set_ylabel('SO2 Mean')
+axs[1].grid(True)
+
+axs[2].plot(time,O3_05, color='dodgerblue')
+axs[2].set_xlabel('Time (day)')
+axs[2].set_ylabel('O3 Mean')
+axs[2].grid(True)
+
+
+axs[3].plot(time, NO2_05, color='orange')
+axs[3].set_xlabel('Time (day)')
+axs[3].set_ylabel('NO2 Mean')
+axs[3].grid(True)
+plt.show()
+
+'''
+
+
+
+
+
+'''
+
+N = len(SO2_06)
+time = np.arange(0,N)
+
+fig, axs = plt.subplots(4, 1, layout='constrained')
+axs[0].plot(time,CO_06, color='red')
+axs[0].set_xlabel('Time (day)')
+axs[0].set_ylabel('CO Mean')
+axs[0].grid(True)
+
+axs[1].plot(time,SO2_06, color='forestgreen')
+axs[1].set_xlabel('Time (day)')
+axs[1].set_ylabel('SO2 Mean')
+axs[1].grid(True)
+
+axs[2].plot(time,O3_06, color='dodgerblue')
+axs[2].set_xlabel('Time (day)')
+axs[2].set_ylabel('O3 Mean')
+axs[2].grid(True)
+
+
+axs[3].plot(time, NO2_06, color='orange')
+axs[3].set_xlabel('Time (day)')
+axs[3].set_ylabel('NO2 Mean')
+axs[3].grid(True)
+plt.show()
+
+'''
+
+
+
+
+
+
+'''
+
+N = len(SO2_07)
+time = np.arange(0,N)
+
+fig, axs = plt.subplots(4, 1, layout='constrained')
+axs[0].plot(time,CO_07, color='red')
+axs[0].set_xlabel('Time (day)')
+axs[0].set_ylabel('CO Mean')
+axs[0].grid(True)
+
+axs[1].plot(time,SO2_07, color='forestgreen')
+axs[1].set_xlabel('Time (day)')
+axs[1].set_ylabel('SO2 Mean')
+axs[1].grid(True)
+
+axs[2].plot(time,O3_07, color='dodgerblue')
+axs[2].set_xlabel('Time (day)')
+axs[2].set_ylabel('O3 Mean')
+axs[2].grid(True)
+
+
+axs[3].plot(time, NO2_07, color='orange')
+axs[3].set_xlabel('Time (day)')
+axs[3].set_ylabel('NO2 Mean')
+axs[3].grid(True)
+plt.show()
+
+'''
+
+
+
+
+
+
+'''
+
+N = len(SO2_08)
+time = np.arange(0,N)
+
+fig, axs = plt.subplots(4, 1, layout='constrained')
+axs[0].plot(time,CO_08, color='red')
+axs[0].set_xlabel('Time (day)')
+axs[0].set_ylabel('CO Mean')
+axs[0].grid(True)
+
+axs[1].plot(time,SO2_08, color='forestgreen')
+axs[1].set_xlabel('Time (day)')
+axs[1].set_ylabel('SO2 Mean')
+axs[1].grid(True)
+
+axs[2].plot(time,O3_08, color='dodgerblue')
+axs[2].set_xlabel('Time (day)')
+axs[2].set_ylabel('O3 Mean')
+axs[2].grid(True)
+
+
+axs[3].plot(time, NO2_08, color='orange')
+axs[3].set_xlabel('Time (day)')
+axs[3].set_ylabel('NO2 Mean')
+axs[3].grid(True)
+plt.show()
+
+'''
