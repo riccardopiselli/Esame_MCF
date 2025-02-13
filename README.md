@@ -7,6 +7,7 @@ Durante l'analisi dei dati, è emersa una problematica iniziale, le richieste pr
 
 -  uno studio dell'evoluzione temporale dei vari inquinanti all'interno di uno stesso Stato;
 -  un'analisi dei dati raccolti dalle diverse stazioni di monitoraggio per ciascuno Stato;
+-  
 -  un confronto dello stesso inquinante tra i vari Stati ed eventualmente tra le diverse stazioni.
 
 La problematica riscontrata consiste nel fatto che, per una certa parte degli Stati, è disponibile il dataset di una sola stazione di monitoraggio.
