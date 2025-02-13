@@ -27,7 +27,12 @@ solo quando necessario, questo onde evitare un appesantimento, evitabile, del fi
    - **Oregon.py**
    - **Minnesota.py**
    - **Alabama.py**
-
+   - **Texas.py**
+   - **TexCO.py**
+   - **TexSO2.py**
+   - **TexNO2.py**
+   - **TexO3.py**
+  
 sono stati mandati in esecuzione ed eseguiti correttamnete è possibile usare il file **RiassuntoStati.py**
 che raccogli tutti i risultati precedenti.
 
